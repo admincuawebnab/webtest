@@ -187,3 +187,36 @@ body:before{
   .hero-copy h1{font-size:48px!important;letter-spacing:-3.2px!important}
   .section-title{font-size:31px!important}
 }
+
+/* =========================================================
+   NAB STORE // LAYOUT + EFFECTS V3
+   Dán phần này ở cuối style.css để test.
+   Chỉ CSS: không đổi JS / API / bot.
+   ========================================================= */
+
+.topnav{position:sticky!important;top:0!important;z-index:50!important}
+.topbar-main{max-width:1540px!important;min-height:76px!important;padding:12px 30px!important}
+.topnav-menu{max-width:1540px!important;padding:0 30px 14px!important;gap:12px!important;align-items:center!important}
+.nav-group{gap:3px!important}.nav-label{padding:0 8px 0 2px!important}.tab-btn{padding:8px 11px!important;border-radius:9px!important}.topnav-discord{margin-left:auto!important}
+.account-cluster{gap:7px!important}.balance-box{min-width:172px!important;min-height:44px!important}.streak-box{min-width:48px!important;justify-content:center!important}.user-meta{min-width:88px!important}
+.content{max-width:1540px!important;padding:42px 30px 80px!important}
+.store-hero{min-height:430px!important;grid-template-columns:minmax(0,1fr) 370px!important;align-items:stretch!important;padding:55px!important;overflow:hidden!important;background:radial-gradient(500px 300px at 76% 42%,rgba(255,255,255,.085),transparent 65%),radial-gradient(500px 360px at 94% 105%,rgba(137,91,255,.075),transparent 65%),linear-gradient(135deg,#14171c 0%,#090b0e 58%,#0d1014 100%)!important}
+.store-hero:before{width:620px!important;height:620px!important;right:-250px!important;top:-250px!important;border-color:rgba(255,255,255,.065)!important;box-shadow:0 0 0 55px rgba(255,255,255,.011),0 0 0 115px rgba(255,255,255,.008),0 0 130px rgba(150,110,255,.08)!important}
+.hero-copy{align-self:center!important;padding-bottom:8px!important}.hero-copy h1{max-width:850px!important;margin-top:15px!important;margin-bottom:24px!important}.hero-card{align-self:center!important;justify-self:end!important;min-height:205px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important}.hero-card strong{font-size:35px!important}
+.section-head{margin:68px 0 24px!important;align-items:flex-end!important}.section-head>div:first-child:after{content:"";display:block;width:56px;height:2px;margin-top:15px;background:linear-gradient(90deg,#fff,transparent);opacity:.7}.section-count{letter-spacing:2.5px!important}
+.grid-shop{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:18px!important}
+.the-san-pham{min-height:345px!important;transform:translateZ(0);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s,background .35s!important}
+.the-san-pham:nth-child(1){animation-delay:.03s!important}.the-san-pham:nth-child(2){animation-delay:.08s!important}.the-san-pham:nth-child(3){animation-delay:.13s!important}.the-san-pham:nth-child(4){animation-delay:.18s!important}
+.the-san-pham:hover{transform:translateY(-9px) scale(1.012)!important;border-color:rgba(255,255,255,.19)!important;box-shadow:inset 0 1px rgba(255,255,255,.08),0 28px 70px rgba(0,0,0,.42),0 0 45px rgba(255,255,255,.025)!important}.the-san-pham:after{transition:transform .5s,opacity .5s!important}.the-san-pham:hover:after{transform:translate(-8px,-4px) scale(1.08)!important}
+.the-san-pham button,.the-form button,.primary-button,.modal-button{position:relative!important;overflow:hidden!important}
+.the-san-pham button:before,.the-form button:before,.primary-button:before,.modal-button:before{content:"";position:absolute;top:0;left:-120%;width:70%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);transform:skewX(-20deg);transition:left .55s ease;pointer-events:none}
+.the-san-pham button:hover:before,.the-form button:hover:before,.primary-button:hover:before,.modal-button:hover:before{left:145%}.the-san-pham button span,.the-form button span,.primary-button span{position:relative;z-index:2}
+.grid-list{width:min(100%,980px)!important;gap:9px!important}.dong-list{min-height:72px!important;padding:15px 18px!important;border-radius:14px!important;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,background .25s,box-shadow .25s!important}.dong-list:hover{transform:translateX(7px)!important;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.018))!important;box-shadow:0 12px 35px rgba(0,0,0,.25)!important}
+.page-heading{max-width:850px!important;margin-bottom:30px!important}.the-form{max-width:650px!important;padding:32px!important;border-radius:20px!important}.the-form input,.the-form select{transition:border-color .2s,box-shadow .2s,background .2s!important}.the-form input:focus,.the-form select:focus{border-color:rgba(255,255,255,.27)!important;box-shadow:0 0 0 4px rgba(255,255,255,.035)!important;background:#0a0c0f!important}
+.login-orbit{border-color:rgba(255,255,255,.07)!important;box-shadow:0 0 0 55px rgba(255,255,255,.008),0 0 120px rgba(255,255,255,.045)!important;animation:nabOrbit 18s linear infinite!important}@keyframes nabOrbit{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.tab-content.active{animation:nabPageIn .42s cubic-bezier(.2,.8,.2,1) both!important}@keyframes nabPageIn{from{opacity:0;transform:translateY(12px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.tab-btn{transition:color .2s,background .2s,border-color .2s,transform .2s!important}.tab-btn:hover,.tab-btn.active{transform:translateY(-1px)!important}.topnav-discord{transition:transform .2s,border-color .2s,background .2s,box-shadow .2s!important}.topnav-discord:hover{transform:translateY(-2px)!important;box-shadow:0 10px 30px rgba(130,80,255,.10)!important}
+.site-footer{max-width:1540px!important;padding-left:30px!important;padding-right:30px!important}
+@media(max-width:1250px){.topbar-main,.topnav-menu{padding-left:20px!important;padding-right:20px!important}.content{padding-left:20px!important;padding-right:20px!important}.grid-shop{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:980px){.store-hero{grid-template-columns:1fr!important;min-height:520px!important}.hero-card{width:min(100%,390px)!important;justify-self:start!important}.grid-shop{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){.topbar-main{padding-left:16px!important;padding-right:16px!important}.topnav-menu{padding-left:16px!important;padding-right:16px!important}.content{padding:28px 16px 55px!important}.store-hero{min-height:520px!important;padding:30px!important;border-radius:22px!important}.hero-copy h1{font-size:clamp(43px,12vw,58px)!important;letter-spacing:-3px!important}.section-head{margin-top:45px!important}.grid-shop{grid-template-columns:1fr!important}.the-san-pham{min-height:315px!important}.site-footer{padding-left:16px!important;padding-right:16px!important}}
