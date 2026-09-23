@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nab Store</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- MÀN HÌNH ĐĂNG NHẬP -->
+  <div id="man-hinh-login" class="man-hinh">
+    <div class="the-login">
+      <div class="login-logo">🏪</div>
+      <h1>NAB STORE</h1>
+      <p>Đăng nhập bằng token từ lệnh <code>/tokennab</code> trên Discord</p>
+      <input id="input-token" type="text" placeholder="Nhập token của bạn..." />
+      <button id="nut-dang-nhap">ĐĂNG NHẬP</button>
+      <p id="loi-login" class="thong-bao-loi"></p>
+      <p class="login-hint">
+  Chưa có token? Vào <a href="https://discord.gg/g6kKQz5a2" target="_blank">server Discord</a> trước, sau đó gõ <code>/tokennab</code> để lấy token.<br/>
+  ⚠️ Lưu ý: bạn phải <b>là thành viên trong server</b> thì lệnh <code>/tokennab</code> mới dùng được.<br/>
+  📹 <a href="https://drive.google.com/file/d/1LlDoKcY3hu-5y-7JflJm6x4R9JKfbBTS/view?usp=drivesdk" target="_blank">Xem video hướng dẫn lấy token</a>
+</p>
+    </div>
+  </div>
+
+  <!-- POPUP: THÔNG BÁO TỪ ADMIN -->
+  <div id="modal-thongbao" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-icon">📢</div>
+      <h2 class="modal-title">THÔNG BÁO ĐẾN TỪ ADMIN</h2>
+      <p id="noi-dung-thongbao" class="modal-noidung"></p>
+      <button id="nut-dong-thongbao" class="modal-button">ĐÃ HIỂU</button>
+    </div>
+  </div>
+
+  <!-- POPUP: ĐẶT TÊN HIỂN THỊ (chỉ hỏi 1 lần) -->
+  <div id="modal-datten" class="modal-overlay" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-icon">✏️</div>
+      <h2 class="modal-title">ĐẶT TÊN HIỂN THỊ</h2>
+      <p class="modal-noidung">Chọn 1 tên hiển thị riêng cho web (khác tên Discord). Chỉ hỏi 1 lần duy nhất.</p>
+      <input id="input-ten-web" type="text" placeholder="Nhập tên bạn muốn..." maxlength="30" />
+      <button id="nut-luu-ten-web" class="modal-button">LƯU TÊN</button>
+      <p id="loi-ten-web" class="thong-bao-loi"></p>
+    </div>
+  </div>
+
+  <!-- MÀN HÌNH CHÍNH -->
+  <div id="man-hinh-chinh" class="app-layout" style="display:none;">
+
+    <!-- MENU NGANG TRÊN ĐẦU -->
+    <header class="topnav">
+      <div class="topnav-brand">🏪 NAB STORE</div>
+
+      <button id="nut-hamburger" class="nut-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="topnav-menu" class="topnav-menu">
+        <button class="tab-btn active" data-tab="shop">🛒 Cửa Hàng</button>
+        <button class="tab-btn" data-tab="dnhn">📅 Điểm Danh</button>
+        <button class="tab-btn" data-tab="lsmua">📜 Lịch Sử</button>
+        <button class="tab-btn" data-tab="chuyenbxu">🔄 Chuyển Bxu</button>
+        <button class="tab-btn" data-tab="nhapcode">🎟️ Nhập Code</button>
+        <button class="tab-btn" data-tab="napthe">💳 Nạp Thẻ</button>
+        <button class="tab-btn" data-tab="napbank">🏦 Nạp Bank</button>
+        <button class="tab-btn" data-tab="ttcn">🪪 Cá Nhân</button>
+        <button class="tab-btn" data-tab="bxh">🏆 BXH</button>
+        <button class="tab-btn" data-tab="minigame">🧠 Mini Game</button>
+        <a href="https://discord.gg/3efHDNyEr" target="_blank" class="topnav-discord">💬 Liên Hệ Discord</a>
+      </nav>
+
+      <div class="topnav-user">
+        <div class="badge-xu">💰 <span id="so-xu">0</span></div>
+        <div class="badge-streak">🔥 <span id="streak-hien-tai">0</span></div>
+        <div class="avatar" id="avatar-chu-cai">?</div>
+        <span id="ten-user" class="topnav-username">—</span>
+        <button id="nut-dang-xuat" class="topnav-logout">⎋</button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- TAB CỬA HÀNG -->
+      <section id="tab-shop" class="tab-content active">
+        <h2 class="section-title">Cửa Hàng</h2>
+        <div id="danh-sach-shop" class="grid-shop"></div>
+      </section>
+
+      <!-- TAB ĐIỂM DANH -->
+      <section id="tab-dnhn" class="tab-content">
+        <h2 class="section-title">Điểm Danh</h2>
+        <div class="the-form the-form-center">
+          <div class="dnhn-icon">📅</div>
+          <h3>Điểm Danh Hằng Ngày</h3>
+          <p>Streak hiện tại: <b id="streak-hien-tai-form">0</b> ngày 🔥</p>
+          <button id="nut-diem-danh">ĐIỂM DANH NGAY</button>
+          <p id="ket-qua-dnhn" class="thong-bao"></p>
+        </div>
+      </section>
+
+      <!-- TAB LỊCH SỬ MUA -->
+      <section id="tab-lsmua" class="tab-content">
+        <h2 class="section-title">Lịch Sử Mua Hàng</h2>
+        <div id="danh-sach-lsmua" class="grid-list"></div>
+      </section>
+
+      <!-- TAB CHUYỂN BXU -->
+      <section id="tab-chuyenbxu" class="tab-content">
+        <h2 class="section-title">Chuyển Bxu</h2>
+        <div class="the-form">
+          <input id="input-nguoinhan-id" type="text" placeholder="Discord ID người nhận" />
+          <input id="input-soluong-chuyen" type="number" placeholder="Số Bxu muốn chuyển" min="1" />
+          <button id="nut-chuyen-bxu">CHUYỂN NGAY</button>
+          <p id="ket-qua-chuyenbxu" class="thong-bao"></p>
+        </div>
+      </section>
+
+      <!-- TAB NHẬP CODE -->
+      <section id="tab-nhapcode" class="tab-content">
+        <h2 class="section-title">Nhập Mã Code</h2>
+        <div class="the-form">
+          <input id="input-ma-code" type="text" placeholder="Nhập mã code..." />
+          <button id="nut-nhap-code">NHẬP MÃ</button>
+          <p id="ket-qua-nhapcode" class="thong-bao"></p>
+        </div>
+      </section>
+
+      <!-- TAB NẠP THẺ -->
+      <section id="tab-napthe" class="tab-content">
+        <h2 class="section-title">Nạp Thẻ Cào</h2>
+        <div class="the-form">
+          <select id="select-loai-the">
+            <option value="VIETTEL">VIETTEL</option>
+            <option value="MOBIFONE">MOBIFONE</option>
+            <option value="ZING">ZING</option>
+            <option value="GARENA">GARENA</option>
+          </select>
+          <select id="select-menh-gia">
+            <option value="10000">10,000đ</option>
+            <option value="20000">20,000đ</option>
+            <option value="50000">50,000đ</option>
+            <option value="100000">100,000đ</option>
+          </select>
+          <input id="input-ma-the" type="text" placeholder="Mã thẻ" />
+          <input id="input-so-seri" type="text" placeholder="Số seri" />
+          <button id="nut-nap-the">GỬI YÊU CẦU</button>
+          <p id="ket-qua-napthe" class="thong-bao"></p>
+        </div>
+      </section>
+
+      <!-- TAB NẠP BANK -->
+      <section id="tab-napbank" class="tab-content">
+        <h2 class="section-title">Nạp Qua Ngân Hàng</h2>
+        <div class="the-form">
+          <input id="input-so-tien-bank" type="number" placeholder="Số tiền muốn nạp - tối thiểu 2,000 vnd" min="1" />
+          <input id="input-ghichu-bank" type="text" placeholder="Ghi chú (không bắt buộc)" />
+          <button id="nut-nap-bank">GỬI YÊU CẦU</button>
+          <p id="ket-qua-napbank" class="thong-bao"></p>
+        </div>
+      </section>
+
+      <!-- TAB THÔNG TIN CÁ NHÂN -->
+      <section id="tab-ttcn" class="tab-content">
+        <h2 class="section-title">Thông Tin Cá Nhân</h2>
+        <div id="danh-sach-ttcn" class="grid-list"></div>
+      </section>
+
+      <!-- TAB BXH -->
+      <section id="tab-bxh" class="tab-content">
+        <h2 class="section-title">Bảng Xếp Hạng</h2>
+        <div id="danh-sach-bxh" class="grid-list"></div>
+      </section>
+
+      <!-- TAB MINI GAME -->
+      <section id="tab-minigame" class="tab-content">
+        <h2 class="section-title">🧠 Mini Game Memory</h2>
+
+        <div class="minigame-wrap">
+          <div class="minigame-head">
+            <div>
+              <h3>Memory Game</h3>
+              <p>Ghép các ô giống nhau để nhận thêm Bxu.</p>
+            </div>
+            <div id="minigame-cooldown" class="minigame-cooldown">Kiểm tra trạng thái...</div>
+          </div>
+
+          <div id="minigame-chon-do-kho" class="minigame-modes">
+            <button class="minigame-mode-btn" data-mode="easy">
+              <span class="minigame-mode-icon">🟢</span>
+              <span class="minigame-mode-name">Dễ</span>
+              <span class="minigame-mode-info">3×3 · 10–25 Bxu</span>
+            </button>
+
+            <button class="minigame-mode-btn" data-mode="hard">
+              <span class="minigame-mode-icon">🔴</span>
+              <span class="minigame-mode-name">Khó</span>
+              <span class="minigame-mode-info">10×10 · 25–50 Bxu</span>
+            </button>
+          </div>
+
+          <div id="minigame-thong-bao" class="minigame-message"></div>
+
+          <div id="minigame-game" class="minigame-game" style="display:none;">
+            <div class="minigame-game-top">
+              <span id="minigame-ten-do">Dễ</span>
+              <span id="minigame-tien-do">0 / 4 cặp</span>
+            </div>
+
+            <div id="minigame-board" class="minigame-board"></div>
+
+            <button id="minigame-dung" class="minigame-stop-btn">DỪNG GAME</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script_part1.js"></script>
+  <script src="script_part2.js"></script>
+  <script src="script_part3.js"></script>
+  <script src="script_part4.js"></script>
+  <script>
+    const _streakObserver = new MutationObserver(() => {
+      document.getElementById("streak-hien-tai-form").textContent =
+        document.getElementById("streak-hien-tai") ? document.getElementById("streak-hien-tai").textContent : "0";
+    });
+    if (document.getElementById("streak-hien-tai")) {
+      _streakObserver.observe(document.getElementById("streak-hien-tai"), { childList: true });
+    }
+
+    const nutHamburger = document.getElementById("nut-hamburger");
+    const topnavMenu = document.getElementById("topnav-menu");
+
+    nutHamburger.addEventListener("click", () => {
+      topnavMenu.classList.toggle("mo");
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        topnavMenu.classList.remove("mo");
+      });
+    });
+  </script>
+</body>
+</html>
