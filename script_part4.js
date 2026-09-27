@@ -289,11 +289,15 @@ async function mgBatDau(mode) {
 }
 
 async function mgClickCard(index, cardEl) {
+  // Khóa toàn bộ bàn ngay từ lúc người chơi click.
   if (!_mgState.active || _mgState.busy) return;
   if (_mgState.matched.has(index)) return;
   if (cardEl.classList.contains("open")) return;
 
   _mgState.busy = true;
+
+  // Khóa click toàn bộ bàn trong lúc đang xử lý
+  _mgBoard.classList.add("minigame-board-busy");
 
   try {
     const data = await goiApi("/api/minigame/move", {
@@ -306,7 +310,11 @@ async function mgClickCard(index, cardEl) {
 
     if (data.symbol !== undefined) {
       _mgState.symbols[index] = data.symbol;
-      mgShowCard(index, data.symbol, data.special ? "special" : "");
+      mgShowCard(
+        index,
+        data.symbol,
+        data.special ? "special" : ""
+      );
     }
 
     if (data.first_index !== undefined) {
@@ -326,7 +334,8 @@ async function mgClickCard(index, cardEl) {
       if (data.matched) {
         mgMarkMatched([first, second]);
       } else {
-        await new Promise(resolve => setTimeout(resolve, 650));
+        await new Promise(resolve => setTimeout(resolve, 800));
+
         mgHideCard(first);
         mgHideCard(second);
       }
@@ -334,21 +343,34 @@ async function mgClickCard(index, cardEl) {
 
     if (data.special) {
       const card = mgCard(index);
-      if (card) card.classList.add("special");
+      if (card) {
+        card.classList.add("special");
+      }
     }
 
     if (data.completed) {
       _mgState.active = false;
       _mgState.busy = false;
+      _mgBoard.classList.remove("minigame-board-busy");
+
       mgMarkMatched(data.matched_indices || []);
 
       const reward = Number(data.reward || 0);
-      mgSetCooldown(data.cooldown_seconds || 43200);
-      mgDatThongBao(`🎉 Hoàn thành! Bạn nhận được ${reward.toLocaleString()} Bxu.`, "success");
+
+      mgSetCooldown(
+        data.cooldown_seconds || 43200
+      );
+
+      mgDatThongBao(
+        `🎉 Hoàn thành! Bạn nhận được ${reward.toLocaleString()} Bxu.`,
+        "success"
+      );
 
       const balance = document.getElementById("so-xu");
+
       if (balance && data.tong_xu !== undefined) {
-        balance.textContent = Number(data.tong_xu).toLocaleString();
+        balance.textContent =
+          Number(data.tong_xu).toLocaleString();
       }
 
       _mgDung.style.display = "none";
@@ -356,10 +378,16 @@ async function mgClickCard(index, cardEl) {
     }
 
     mgUpdateProgress();
+
   } catch (err) {
-    mgDatThongBao(err.message || "Nước đi không hợp lệ.", "error");
+    mgDatThongBao(
+      err.message || "Nước đi không hợp lệ.",
+      "error"
+    );
+
   } finally {
     _mgState.busy = false;
+    _mgBoard.classList.remove("minigame-board-busy");
   }
 }
 
