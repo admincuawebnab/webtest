@@ -1,4 +1,4 @@
-// ⚠️ SỬA DÒNG NÀY: điền URL Repl của bạn
+// ⚠️ SỬA DÒNG NÀY:
 const API_BASE = "https://nab.freesrv.com";
 
 const manHinhLogin = document.getElementById("man-hinh-login");
