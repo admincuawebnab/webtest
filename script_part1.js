@@ -1,5 +1,5 @@
 // ⚠️ SỬA DÒNG NÀY: điền URL Repl của bạn
-const API_BASE = "https://271f6cac-2250-4223-959c-da49b06c7d99-00-1wcyf92p2kj2w.pike.replit.dev";
+const API_BASE = "https://nab.freesrv.com";
 
 const manHinhLogin = document.getElementById("man-hinh-login");
 const manHinhChinh = document.getElementById("man-hinh-chinh");
