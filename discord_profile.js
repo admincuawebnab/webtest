@@ -1,6 +1,6 @@
 /* NAB STORE - Discord profile link (additive; keeps NAB token login) */
 (() => {
-  const API_BASE_DISCORD = "https://nab.freesrv.com";
+  const API_BASE_DISCORD = "https://271f6cac-2250-4223-959c-da49b06c7d99-00-1wcyf92p2kj2w.pike.replit.dev:3000";
   const WEBTEST_URL = "https://admincuawebnab.github.io/webtest/";
   const getToken = () => localStorage.getItem("nabstore_token");
   const api = async (path, options = {}) => {
